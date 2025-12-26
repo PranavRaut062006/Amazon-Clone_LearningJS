@@ -1,5 +1,5 @@
 //import {cart as Mycart} from '../data/cart.js';  // can change the name
-import {cart} from '../data/cart.js';  // take the cart var from cart.js 
+import {cart , addToCart} from '../data/cart.js';  // take the cart var from cart.js 
 import {products} from '../data/products.js';
 
 let productsHTML = '';
@@ -59,35 +59,23 @@ products.forEach((product)=> {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+function updateCartQuantity(){
+   let cartQuantity = 0;
+   cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
+   });
+
+   document.querySelector('.js-cart-quantity')
+      .innerHTML = cartQuantity;
+}
+
 document.querySelectorAll('.js-add-to-cart')
    .forEach((button) => {
       button.addEventListener('click', () => {
          const productId = button.dataset.productId;  // data-product-name conveted to dataset.productName
 
-         // check the product is already there or not (for that loop)
-         let matchingItem;
-         cart.forEach((item) => {
-            if(productId === item.productId) {
-               matchingItem = item;
-            }
-         });
-         
-         if(matchingItem) {
-            matchingItem.quantity+=1;
-         } else {
-            cart.push({
-               productId : productId,
-               quantity : 1
-            });
-         }
-
-         let cartQuantity = 0;
-         cart.forEach((item) => {
-            cartQuantity += item.quantity;
-         });
-
-         document.querySelector('.js-cart-quantity')
-            .innerHTML = cartQuantity;  
+         addToCart(productId);
+         updateCartQuantity();           
       });
    });
 
@@ -107,4 +95,11 @@ use of scripts can cause to naming conflicts
 the cart is used in the cart.js so we can't use in other file 
 for solving that we use modules -
    It contains a variable in that file 
+*/
+
+// Some more about modules
+/*
+   import * as cartModules from '../data/cart.js';
+   cartModules.cart 
+   cartModules.addToCart(id);
 */
