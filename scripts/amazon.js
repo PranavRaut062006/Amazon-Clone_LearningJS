@@ -1,7 +1,10 @@
+//import {cart as Mycart} from '../data/cart.js';  // can change the name
+import {cart} from '../data/cart.js';  // take the cart var from cart.js 
+
 let productsHTML = '';
 //products variable is comming from data/products.js
 products.forEach((product)=> {
-   productsHTML += `
+   productsHTML += ` 
       <div class="product-container">
          <div class="product-image-container">
          <img class="product-image"
@@ -97,3 +100,10 @@ document.querySelectorAll('.js-add-to-cart')
    */
 
 //dataset property gives all the data attributes that are attached -> here kabab case is converted to Camel case 
+
+/*
+use of scripts can cause to naming conflicts 
+the cart is used in the cart.js so we can't use in other file 
+for solving that we use modules -
+   It contains a variable in that file 
+*/
