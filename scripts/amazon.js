@@ -46,7 +46,7 @@ products.forEach((product)=> {
          Added
          </div>
 
-         <button class="add-to-cart-button button-primary">
+         <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
          Add to Cart
          </button>
       </div>
@@ -55,4 +55,38 @@ products.forEach((product)=> {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+document.querySelectorAll('.js-add-to-cart')
+   .forEach((button) => {
+      button.addEventListener('click', () => {
+         const productId = button.dataset.productId;  // data-product-name conveted to dataset.productName
+
+         // check the product is already there or not (for that loop)
+         let matchingItem;
+         cart.forEach((item) => {
+            if(productId === item.productId) {
+               matchingItem = item;
+            }
+         });
+         
+         if(matchingItem) {
+            matchingItem.quantity+=1;
+         } else {
+            cart.push({
+               productId : productId,
+               quantity : 1
+            });
+         }
+         console.log(cart); 
+      });
+   });
+
 // .toFixed(2) means show 2 decimal places after.
+
+//Data attribute -> 
+   /*
+   just another HTML attribute
+   allows us to attach any info to an element   
+   data-product-name is example of data attribute
+   */
+
+//dataset property gives all the data attributes that are attached -> here kabab case is converted to Camel case 
