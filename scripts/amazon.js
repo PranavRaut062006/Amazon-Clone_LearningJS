@@ -1,5 +1,6 @@
 //import {cart as Mycart} from '../data/cart.js';  // can change the name
 import {cart} from '../data/cart.js';  // take the cart var from cart.js 
+import {products} from '../data/products.js';
 
 let productsHTML = '';
 //products variable is comming from data/products.js
