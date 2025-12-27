@@ -1,5 +1,5 @@
 // this var can use outside cart.js
-export const cart = [
+export let cart = [
    // adding some default values to make work easy leter remove them
    {
       productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -29,4 +29,17 @@ export function addToCart(productId){
          quantity : 1
       });
    }
+}
+
+//function for removing product from cart
+export function removeFromCart(productId)  {
+//create new array,loop through cart add each product in new array except from productId
+   const newCart = [];
+   cart.forEach((cartItem) => {
+      if(cartItem.productId !== productId){
+         newCart.push(cartItem);
+      }
+   });
+
+   cart = newCart;
 }
