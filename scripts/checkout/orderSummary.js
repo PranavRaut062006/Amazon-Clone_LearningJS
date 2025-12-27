@@ -4,12 +4,13 @@ import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 //this syntax is default syntax -> when we only export 1 thing
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import {renderPaymentSummary} from './paymentSummary.js';
 
-const today = dayjs();   //using dayjs library
+// const today = dayjs();   //using dayjs library
 
-const deliveryDate = today.add(7 , 'days');
-console.log(deliveryDate);
-deliveryDate.format('dddd, MMMM D');
+// const deliveryDate = today.add(7 , 'days');
+// console.log(deliveryDate);
+// deliveryDate.format('dddd, MMMM D');
 
 /*
 YY     two-digit-year  18
@@ -149,6 +150,8 @@ export function renderOrderSummary() {
          const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
          container.remove();
+
+         renderPaymentSummary();
          updateCartQuantity();
       });
    });
@@ -171,6 +174,7 @@ export function renderOrderSummary() {
             updateDeliveryOption(productId , deliveryOptionId);
             //after update 
             renderOrderSummary();  //recursion
+            renderPaymentSummary();
          });
       });
 }
