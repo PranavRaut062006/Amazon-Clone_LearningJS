@@ -6,6 +6,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions} from '../data/deliveryOptions.js';
 
 const today = dayjs();   //using dayjs library
+
 const deliveryDate = today.add(7 , 'days');
 console.log(deliveryDate);
 deliveryDate.format('dddd, MMMM D');
@@ -23,9 +24,10 @@ D 1-31 Day of month
 H 0-23 the hour
 */
 
-let cartSummaryHTML = '';
+function renderOrderSummary() {
+   let cartSummaryHTML = '';
 
-cart.forEach((cartItem) => {
+   cart.forEach((cartItem) => {
    const productId = cartItem.productId;
 
    let matchingProduct;
@@ -89,14 +91,14 @@ cart.forEach((cartItem) => {
                Choose a delivery option:
                </div>
                
-                 ${deliveryOptionsHTML(matchingProduct , cartItem)}
+                  ${deliveryOptionsHTML(matchingProduct , cartItem)}
             </div>
          </div>
       </div>
    `;
-});
+   });
 
-function deliveryOptionsHTML(matchingProduct , cartItem) {
+   function deliveryOptionsHTML(matchingProduct , cartItem) {
    let html = '';
    //loop through deliveryOptions,forEach option generate some HTML,Combine all 
    deliveryOptions.forEach((deliveryOption) => {
@@ -133,11 +135,11 @@ function deliveryOptionsHTML(matchingProduct , cartItem) {
       `
    });
    return html;
-}
+   }
 
-document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+   document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 
-document.querySelectorAll('.js-delete-link')
+   document.querySelectorAll('.js-delete-link')
    .forEach((link) => {
       link.addEventListener('click' , () => {
          // when we click delete 1.remove from cart 2.update HTML
@@ -151,21 +153,27 @@ document.querySelectorAll('.js-delete-link')
       });
    });
 
-// Not conflict with function in amazon.js in updateCartQuantity()
-function updateCartQuantity(){
+   // Not conflict with function in amazon.js in updateCartQuantity()
+   function updateCartQuantity(){
    let cartQuantity = 0;
    cart.forEach((cartItem) => {
       cartQuantity += cartItem.quantity;
    });
    document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`; 
+   }
+
+   updateCartQuantity();
+
+   document.querySelectorAll('.js-delivery-option')
+      .forEach((element) => {
+         element.addEventListener('click' , () => {
+            const {productId , deliveryOptionId} = element.dataset;
+            updateDeliveryOption(productId , deliveryOptionId);
+            //after update 
+            renderOrderSummary();  //recursion
+         });
+      });
 }
 
-updateCartQuantity();
 
-document.querySelectorAll('.js-delivery-option')
-   .forEach((element) => {
-      element.addEventListener('click' , () => {
-         const {productId , deliveryOptionId} = element.dataset;
-         updateDeliveryOption(productId , deliveryOptionId);
-      });
-   });
+renderOrderSummary();
