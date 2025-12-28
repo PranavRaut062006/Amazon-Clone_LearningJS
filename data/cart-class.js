@@ -2,16 +2,17 @@
 class Cart{
    cartItems = undefined;  // how to add property to class 
    // localStorageKey = undefined;  
-   localStorageKey;  // same thing
+   #localStorageKey;  // same thing
+   // # means we made it private
 
    //Creating a constructor
    constructor(localStorageKey){
-      this.localStorageKey = localStorageKey;
-      this.loadFromStorage();
+      this.#localStorageKey = localStorageKey;
+      this.#loadFromStorage(); 
    }
 
-   loadFromStorage() {
-      this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)); 
+   #loadFromStorage() {  //it's private method
+      this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)); 
       if(!this.cartItems) {
          // adding some default values to make work easy leter remove them
       this.cartItems = [
@@ -29,7 +30,7 @@ class Cart{
    }
 
    saveToStorage() {
-      localStorage.setItem(this.localStorageKey , JSON.stringify(this.cartItems));
+      localStorage.setItem(this.#localStorageKey , JSON.stringify(this.cartItems));
    }
 
    addToCart(productId){
@@ -82,7 +83,11 @@ class Cart{
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
 
+// cart.#localStorageKey = 'Pranav';  cannot change
+
 console.log(cart);
 console.log(businessCart);
 
 console.log(businessCart instanceof Cart);  //gives true
+
+//private -> only access in the class
