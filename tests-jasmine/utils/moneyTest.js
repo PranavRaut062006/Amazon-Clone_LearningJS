@@ -1,5 +1,5 @@
 // SAME AS THE MONEYTEST.JS CREATED BEFORE BUT THIS TIME CREATED WITH HELP OF JASMINE
-import {formatCurrency} from '../scripts/utils/money.js';
+import {formatCurrency} from '../../scripts/utils/money.js';
 
 // provided by jasmine we give it name of test suite , it() is also provided by jasmine 
 describe('test suite: formatCurrency' , () => {
