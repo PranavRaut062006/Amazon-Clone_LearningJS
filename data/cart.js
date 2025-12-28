@@ -7,8 +7,8 @@ loadFromStorage();
 export function loadFromStorage() {
    cart = JSON.parse(localStorage.getItem('cart')); 
    if(!cart) {
+      // adding some default values to make work easy leter remove them
    cart = [
-   // adding some default values to make work easy leter remove them
          {
             productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
             quantity: 2,
