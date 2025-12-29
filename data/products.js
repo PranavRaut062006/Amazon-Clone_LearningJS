@@ -94,6 +94,32 @@ const object3 = {
 object3.method(); //undefined
  */
 
+//loading products with backend
+export let products = [];
+
+export function loadProducts(fun){
+  //create a request
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load' , () => {
+    products = JSON.parse(xhr.response).map((productDetails) => {
+      if(productDetails.type === 'clothing'){
+        return new Clothing(productDetails);  
+      }
+      return new Product(productDetails);
+    });
+
+    console.log('load products');
+
+    fun();  // callback -> a function to run in the future
+  });
+
+  xhr.open('GET' , 'https://supersimplebackend.dev/products');
+  xhr.send();  //it's asynchronous
+}
+
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -759,8 +785,7 @@ export const products = [
   }
   return new Product(productDetails);
 });
-
-
+*/
 //polymorphism - use a method without knowing the class
 
 //http => HyperText Transfer Protocol
