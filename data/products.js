@@ -30,7 +30,29 @@ class Product {
   }
 
   getPrice(){
-    return `$${formatCurrency(this.priceCents / 100)}`;
+    return `$${formatCurrency(this.priceCents)}`;
+  }
+
+  extraInfoHTML(){
+    return '';
+  }
+}
+
+class Clothing extends Product{  // use extends keyword for inheritence
+  sizeChartLink;
+
+  constructor(productDetails){
+    super(productDetails);  // to call the parents constructor
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(){
+    //super.extraInfoHTML();  // calls one of the parents methods
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
   }
 }
 
@@ -696,5 +718,11 @@ export const products = [
     ]
   }
 ].map((productDetails) => {
+  if(productDetails.type === 'clothing'){
+    return new Clothing(productDetails);  
+  }
   return new Product(productDetails);
 });
+
+
+//polymorphism - use a method without knowing the class
