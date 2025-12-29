@@ -56,7 +56,43 @@ class Clothing extends Product{  // use extends keyword for inheritence
   }
 }
 
+//there are few built In class like Date() -> generates an object that represents the current date
+// toLocaleTimeString() this method give time
 
+/* 
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+ */
+
+// out of object this is undefined
+/*
+console.log(this);
+const object2 = {
+  a: 2,
+  b:this.a
+};
+ */
+
+/*
+//this in function 
+function logThis(){
+  console.log(this);
+  // inside function we can change 
+}
+logThis();
+logThis.call('hello');  //does same thing as above but we can set the value > prints hello in console
+
+// Arrow function do not change the value of "this"
+
+const object3 = {
+  method : () => {
+    console.log(this);  
+    // will have the same value as outside the arrow
+  }
+};
+object3.method(); //undefined
+ */
 
 export const products = [
   {
