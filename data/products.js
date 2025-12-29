@@ -762,3 +762,5 @@ export const products = [
 
 
 //polymorphism - use a method without knowing the class
+
+//http => HyperText Transfer Protocol

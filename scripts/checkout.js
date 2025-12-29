@@ -4,5 +4,7 @@ import {renderPaymentSummary} from "./checkout/paymentSummary.js";
 
 //import '../data/cart-class.js';  // another syntax we can run all codes in the file 
 
+import '../data/backend-practice.js';
+
 renderOrderSummary();
 renderPaymentSummary();
