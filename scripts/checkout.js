@@ -9,6 +9,25 @@ import {renderPaymentSummary} from "./checkout/paymentSummary.js";
 import { loadProducts , loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
+//async makes function return a promise
+async function loadPage(){
+
+   await loadProductsFetch();  // await let's us write asynchronous code like normal code
+   // we can only use await if we are in async function
+
+   const value = await new Promise((resolve) => {
+         loadCart(() => {
+            resolve('value3');
+         });
+      });
+
+   renderOrderSummary();
+   renderPaymentSummary();
+   //return 'value2'; // this get converted to resolve 'value2
+}
+loadPage();
+
+/*
 Promise.all([
    //    new Promise((resolve) => {
    //    loadProducts(() => {
@@ -28,6 +47,7 @@ Promise.all([
    renderOrderSummary();
    renderPaymentSummary();
 });
+*/
 
 /*
 new Promise((resolve) => {
@@ -73,4 +93,7 @@ Promises
 
 /*
    fetch is a better way to make HTTP requests
+
+   async await = even better way to handle asynchronous code 
+   await - let's wait for a promise to finish
 */
