@@ -6,15 +6,17 @@ import {renderPaymentSummary} from "./checkout/paymentSummary.js";
 
 // import '../data/backend-practice.js';
 
-import { loadProducts } from "../data/products.js";
+import { loadProducts , loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
 Promise.all([
-      new Promise((resolve) => {
-      loadProducts(() => {
-         resolve('value1');  //lets us control when to go the next step
-      });
-   }),
+   //    new Promise((resolve) => {
+   //    loadProducts(() => {
+   //       resolve('value1');  //lets us control when to go the next step
+   //    });
+   // })
+   loadProductsFetch()
+   ,
       new Promise((resolve) => {
          loadCart(() => {
             resolve();
@@ -67,4 +69,8 @@ Promises
    -Promise creates seperate thread
 
    -Promise.all() lets us run multiple promises at the same time -> we give it array of promises
+*/
+
+/*
+   fetch is a better way to make HTTP requests
 */

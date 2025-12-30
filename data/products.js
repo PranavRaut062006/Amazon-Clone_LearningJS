@@ -97,6 +97,30 @@ object3.method(); //undefined
 //loading products with backend
 export let products = [];
 
+//function using fetch which uses promises over callbacks
+export function loadProductsFetch() {
+  const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
+    //console.log(response);
+    return response.json();
+  }).then((productsData) => {
+    // console.log(productsData);
+    products = productsData.map((productDetails) => {
+      if(productDetails.type === 'clothing'){
+        return new Clothing(productDetails);  
+      }
+      return new Product(productDetails);
+    });
+
+    console.log('load products');
+  });
+  return promise;
+}
+/*
+loadProductsFetch().then(() => {
+  console.log('next step');
+});
+*/
+
 export function loadProducts(fun){
   //create a request
   const xhr = new XMLHttpRequest();
