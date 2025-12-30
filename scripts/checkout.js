@@ -11,15 +11,25 @@ import { loadCart } from "../data/cart.js";
 
 //async makes function return a promise
 async function loadPage(){
+   // using try catch 
+   try{
+      //manually creating error
+      //throw 'error1'; // skip all the code and jump to catch 
 
-   await loadProductsFetch();  // await let's us write asynchronous code like normal code
-   // we can only use await if we are in async function
-
-   const value = await new Promise((resolve) => {
-         loadCart(() => {
-            resolve('value3');
+      await loadProductsFetch();  // await let's us write asynchronous code like normal code
+      // we can only use await if we are in async function
+   
+      const value = await new Promise((resolve, reject) => {
+         // throw 'error2';
+            loadCart(() => {
+               // reject('error3');  // another way to create manual error
+               resolve('value3');
+            });
          });
-      });
+
+   } catch(error) {
+      console.log('Unexpected error, Please try again leter.');
+   }
 
    renderOrderSummary();
    renderPaymentSummary();
