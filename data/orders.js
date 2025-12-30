@@ -9,3 +9,7 @@ export function addOrder(order){
 function saveToStorage() {
    localStorage.setItem('orders', JSON.stringify(orders));
 }
+
+/*
+URL parameters -> let us save data directly in the URL 
+ */
